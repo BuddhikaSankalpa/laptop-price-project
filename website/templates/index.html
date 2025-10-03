@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Laptop Price Predictor</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <main class="container">
+    <h1>Laptop Price Predictor</h1>
+
+    {% if error %}
+      <div class="result" style="background:#fee2e2;color:#991b1b">Error: {{ error }}</div>
+    {% endif %}
+
+    <form method="post">
+      <label>Company
+        <select name="company">
+          <option value="acer">Acer</option>
+          <option value="apple">Apple</option>
+          <option value="asus">Asus</option>
+          <option value="dell">Dell</option>
+          <option value="hp">HP</option>
+          <option value="lenovo">Lenovo</option>
+          <option value="msi">MSI</option>
+          <option value="other">Other</option>
+          <option value="toshiba">Toshiba</option>
+        </select>
+      </label>
+
+      <label>Type Name
+        <select name="typename">
+          <option value="2in1convertible">2 in 1 Convertible</option>
+          <option value="gaming">Gaming</option>
+          <option value="netbook">Netbook</option>
+          <option value="notebook">Notebook</option>
+          <option value="ultrabook">Ultrabook</option>
+          <option value="workstation">Workstation</option>
+        </select>
+      </label>
+
+      <label>Operating System
+        <select name="opsys">
+          <option value="linux">Linux</option>
+          <option value="mac">Mac</option>
+          <option value="other">Other</option>
+          <option value="windows">Windows</option>
+        </select>
+      </label>
+
+      <label>CPU
+        <select name="cpuname">
+          <option value="amd">AMD</option>
+          <option value="intelcorei3">Intel Core i3</option>
+          <option value="intelcorei5">Intel Core i5</option>
+          <option value="intelcorei7">Intel Core i7</option>
+          <option value="other">Other</option>
+        </select>
+      </label>
+
+      <label>GPU
+        <select name="gpuname">
+          <option value="amd">AMD</option>
+          <option value="intel">Intel</option>
+          <option value="nvidia">NVIDIA</option>
+        </select>
+      </label>
+
+      <label>RAM (GB)
+        <input type="number" name="ram" value="8" min="0">
+      </label>
+
+      <label>Weight (kg)
+        <input type="number" step="0.1" name="weight" value="2.0" min="0">
+      </label>
+
+      <label>Storage (GB)
+        <input type="number" name="storage" value="256" min="0">
+      </label>
+
+      <label>Touchscreen
+        <input type="checkbox" name="touchscreen" value="1">
+      </label>
+
+      <label>IPS
+        <input type="checkbox" name="ips" value="1">
+      </label>
+
+      <label>Year
+        <input type="number" name="year" value="2022" min="2005" max="2025">
+      </label>
+
+      <button type="submit">Predict price</button>
+    </form>
+
+    <section class="result">
+      {% if pred_value is not none %}
+        <p><strong>Predicted price :</strong> LKR {{ pred_value }}</p>
+      {% else %}
+        <p>No prediction yet.</p>
+      {% endif %}
+    </section>
+
+    <p class="note">Model predictions use `model/predictor.pickle` if present. Otherwise a heuristic is used.</p>
+  </main>
+  <script src="/static/predict.js"></script>
+</body>
+</html>
